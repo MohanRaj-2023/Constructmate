@@ -3,9 +3,9 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 
 
-from . models import (Admin,customer_details,Project_manager,project_details,qda_analysis,ConstructionData,
-                      High_quality_materialCost,Standard_quality_materialCost,vendor_details,Materials_report_qc,
-                      Quality_checker,QualityAnalysis,Message,Medium_quality_materialCost)
+from constructapp.models import (Admin,customer_details,Project_manager,project_details,qda_analysis,ConstructionData,
+                                High_quality_materialCost,Standard_quality_materialCost,vendor_details,Materials_report_qc,
+                                Quality_checker,QualityAnalysis,Message,Medium_quality_materialCost)
 
 
 #For Message

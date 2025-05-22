@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import (Admin,customer_details,Project_manager,project_details,qda_analysis,High_quality_materialCost,
+from constructapp.models import (Admin,customer_details,Project_manager,project_details,qda_analysis,High_quality_materialCost,
                       Standard_quality_materialCost,ConstructionData,
                       manager_messenger_to_vendor,vendor_details,Materials_report_qc,
                       Quality_checker,manager_to_quality,QualityAnalysis,quality_to_manager,vendor_to_manager,
