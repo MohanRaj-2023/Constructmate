@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructmate-Signup</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<!---Navbar---->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand text-light" style="padding-left: 10px;">Constructmate</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="http://127.0.0.1:8000/" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/about" class="nav-link">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!---Navbar_End----->
+
+    <div class="container mb-5" style="margin-top: 100px;">
+        <div class="row">
+            <div class="offset-md-3 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="font-family: 'Times New Roman', Times, serif;">Create Account</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="/vendor_signup" method="POST"  novalidate id="signupForm">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label>Name</label>
+                                <input type="text" name="Name" class="form-control" autocomplete="off" required id="name" required>
+                                <div class="invalid-feedback">Invalid Name</div>
+                            </div>
+                            <div class="mb-3">
+                                <label>Contact</label>
+                                <input type="text" name="contact" class="form-control" autocomplete="off" placeholder="9876543210" required id="contact">
+                                <div class="invalid-feedback">Invalid Contact</div>
+                            </div>
+                            <div class="mb-3">
+                                <label>Email</label>
+                                <input type="email" name="mail" placeholder="hero@gmail.com" autocomplete="off" class="form-control" required id="email">
+                                <div class="invalid-feedback">Invalid Email</div>
+                            </div>
+                            <div>
+                                <label>Password</label>
+                                <input type="password" name="password" class="form-control"  required id="password">                                
+                                <div class="invalid-feedback">Invalid Password</div>
+                            </div>
+                            <div class="form-text mb-3">
+                             Password must be atleast 8 characters
+                            </div>
+                            
+                            <div class="d-grid mb-3">
+                                <button class="btn btn-primary" type="submit">Create account </button>
+                            </div>
+
+                            <div class="form-text text-muted text-center mb-3">Alreday have an account? <a href="/vendor_login">Sign in</a></div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('signupForm');
+
+    const nameField = document.getElementById('name');
+    const contactField = document.getElementById('contact');
+    const emailField = document.getElementById('email');
+    const passwordField = document.getElementById('password');
+    
+
+    // Regular expressions for validation
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,3}$/;
+    const contactPattern = /^[0-9]{10}$/;
+
+    // Validate functions for each field
+    function validateName() {
+        const name = nameField.value.trim();
+        if (name === "") {
+            
+            nameField.classList.remove('is-valid');
+            nameField.classList.add('is-invalid');
+        } else {
+            nameField.classList.remove('is-invalid');
+            nameField.classList.add('is-valid');
+        }
+    }
+
+    function validateContact() {
+        const contact = contactField.value.trim();
+        
+        if (!contactPattern.test(contact)) {
+            contactField.classList.remove('is-valid');
+            contactField.classList.add('is-invalid');
+        } else {
+            contactField.classList.remove('is-invalid');
+            contactField.classList.add('is-valid');
+        }
+    }
+
+    function validateEmail() {
+        const email = emailField.value.trim();
+        if (!emailPattern.test(email)) {
+            emailField.classList.remove('is-valid');
+            emailField.classList.add('is-invalid');
+        } else {
+            emailField.classList.remove('is-invalid');
+            emailField.classList.add('is-valid');
+        }
+    }
+
+    function validatePassword() {
+        const password = passwordField.value.trim();
+        const passerror= passwordField.parentElement;
+        var remove1=passerror.querySelector('.invalid-feedback');
+        //remove1.textContent=''
+        if (password.length < 8) {            
+              passwordField.classList.remove('is-valid');
+              passwordField.classList.add('is-invalid');
+        } else {
+            passwordField.classList.remove('is-invalid');
+            passwordField.classList.add('is-valid');
+        }
+    }
+
+    // Add input event listeners for real-time validation
+    nameField.addEventListener('input', validateName);
+    contactField.addEventListener('input', validateContact);
+    emailField.addEventListener('input', validateEmail);
+    passwordField.addEventListener('input', validatePassword);
+
+    // Validate on form submission
+    form.addEventListener('submit', function (event) {
+        validateName();
+        validateContact();
+        validateEmail();
+        validatePassword();
+
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        form.classList.add('was-validated');
+    }, false);
+});
+
+</script>
+
+

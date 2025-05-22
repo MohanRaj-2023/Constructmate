@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>upload_report</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container d-flex justify-content-center" style="margin-top: 120px;">
+        <div class="row">
+            <div class="col" style="margin-top: 50px;">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'success' %}
+                <div class="alert alert-success text-white text-center bg-success">
+                {{message}}
+                </div>
+                {% else %}
+                <div class="alert alert-danger text-white text-center bg-danger">
+                    {{message}}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            
+                <div class="card">
+                    <div class="card-header">
+                        <span style="font-family:Arial, Helvetica, sans-serif;">Upload File</span>
+                    </div>
+                    <div class="card-body">
+                        <form action="/upload_materials_report" method="POST" enctype="multipart/form-data" id="upload_report" novalidate>
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="to" class="form-label" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">Customer_Name</label>
+                                <input type="text" name="to" autocomplete="off" class="form-control" placeholder="Enter Name" required>
+                                <div class="invalid-feedback">Enter Customer Name</div>
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="file" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">File</label>
+                                <input type="file" name="materials_report" required>
+                                <div class="invalid-feedback">Attach The Report</div>
+                            </div>
+                            <div class="mb-3">
+                                <span class="form-text">select the downloaded file</span>
+                            </div>
+                            <div class="mb-3 d-flex justify-content-end">
+                                <button class="btn btn-success" type="submit">Upload</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('upload_report');
+    
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+    
+            // Function to validate text input
+            function validateTextInput(field) {
+                if (field.value.trim() === '') {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            }
+    
+            // Validate customer name input
+            const customerNameInput = form.querySelector('input[name="to"]');
+            validateTextInput(customerNameInput);
+    
+            // Validate file input
+            const fileInput = form.querySelector('input[name="materials_report"]');
+            if (fileInput.files.length === 0) {
+                fileInput.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                fileInput.classList.remove('is-invalid');
+            }
+    
+            // Prevent form submission if any field is invalid
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    
+        // Optional: Real-time validation
+        form.addEventListener('input', function(event) {
+            if (event.target.matches('input[type="text"]')) {
+                validateTextInput(event.target);
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function(){
+      $(".alert").hide(3000);
+    });
+</script>

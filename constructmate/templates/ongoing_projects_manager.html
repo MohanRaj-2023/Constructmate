@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ongoing_Projects</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col text-center" style="margin-top: 80px;">
+            <div class="mb-3">
+                <h3 style="font-family: 'Times New Roman', Times, serif; text-decoration: underline;">ONGOING PROJECTS</h3>
+            </div>
+            {% if projects %}
+            <table class="table table-bordered border-dark table-sm">
+                <thead>
+                    <tr>
+                        <th>S:NO</th>
+                        <th>Project_Id</th>
+                        <th>Customer</th>
+                        <th>Building_Type</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                {% for project in projects %}
+                <tbody>
+                    <tr><td>{{ forloop.counter }}</td>
+                        <td>{{ project.id }}</td>
+                        <td>{{project.Customer}}</td>
+                        <td>{{ project.Building_type }}</td>
+                        <td>{{ project.Status }}</td>
+                        {% if project.Status == 'Material Delivery Request Sent To Vendor.' %}
+                        <td><a href="/get_update_id/{{project.id}}" class="btn btn-danger btn-sm disabled" style="width: 150px; margin-top: 10px;">update status</a></td>
+                        {% else %}
+                        <td><a href="/get_update_id/{{project.id}}" class="btn btn-danger btn-sm " style="width: 150px; margin-top: 10px;" target="_blank">update status</a></td>
+                        {% endif %}
+                   </tr> 
+                </tbody>
+                {% endfor %}
+            </table>
+            {% else %}
+            <div class="mt-5  text-center">
+                <h3>No Projects....</h3>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

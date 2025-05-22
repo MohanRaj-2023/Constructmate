@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<!---Navbar---->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand text-light" style="padding-left: 10px;">Constructmate</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/about" class="nav-link" >About</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Login</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="customer_login" class="dropdown-item"> <b>Customer</b> Login</a></li>
+                        <li><a href="manager_login" class="dropdown-item"> <b>Project manager</b> Login</a></li>
+                        <li><a href="vendor_login" class="dropdown-item"> <b>Vendor</b> Login</a></li>
+                        <li><a href="quality_checker_login" class="dropdown-item"> <b>Quality checker</b> Login</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a href="/admin_login" class="dropdown-item"><b>Admin</b> Login</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" style="padding-right: 109px;">Get Started</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="customer_signup" class="dropdown-item">Signup as <b>Customer</b></a></li>
+                        <li><a href="manager_signup" class="dropdown-item">Signup as <b>Project manager</b></a></li>
+                        <li><a href="vendor_signup" class="dropdown-item">Signup as <b>Vendor</b></a></li>
+                        <li><a href="quality_checker_signup" class="dropdown-item">Signup as <b>Quality checker</b></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!---Navbar_End----->
+
+<!----Bg_image------>
+<img src="{% static 'images/worker.jpg' %}" alt="worker" class="img-fluid w-100 mt-5">
+<!----Bg_End-->
+<div class="container-fluid"  style="background-color: #F4F5F8;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mt-1">
+                <span style="font-family: Arial; font-weight: 300; font-size: 50px;">Introducing</span> 
+                <span style="font-family: Arial; font-weight: 300; font-size: 50px;">Construct</span>
+                <span style="font-family: Arial; font-weight: 300; font-size: 50px;">mate</span>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <span>Ready for the next evolution in construction management? </span> <br>
+                <span>Discover Constructmate, your ultimate tool for seamless project execution</span>
+    
+                <ul class="mb-5 mt-3">
+                    <li id="feature">Enhanced Material Estimation Tools</li>
+                    <li id="feature">Comprehensive Project Tracking</li>
+                    <li id="feature">Real-Time Project Updates</li>
+                    <li id="feature">User-Friendly Input Forms</li>
+                </ul>  
+                
+                <span >Start Building Your Vision Today – Register Now!</span> <br>
+                <div class="d-grid">
+                    <a href="/customer_signup" class="btn btn-primary btn-lg mb-5 mt-5 fixed" role="button" id="getstart">Get Started</a>         
+                </div>
+                
+            </div>
+            <div class="col-md-6">
+                <img src="{% static 'images/plan.png' %}" alt="planing" class="img-fluid">
+            </div>
+        </div>
+    <!--------------FAQ-------------->
+    
+    <div class="row">
+        <div class="col  text-center mt-4">
+            <span id="faq" class="text-muted pb-3">FREQUENTLY ASKED QUESTIONS (FAQ)</span> <br> <br>
+            <span id="qabt" class="text-dark">Questions about Constructmate?</span> <br>
+            <span id="quest" >Here are some common answers to frequent questions about Constructmate.</span>
+    
+        </div>
+    </div>
+    <!----Qusetion&Answers------>
+    <div class="row">
+        <div class="offset-md-2 col-md-8 mt-5">
+           <div class="dropdown">
+            <a href="#" class="btn btn-secondary w-100" style="text-align: left;" data-bs-toggle="dropdown" role="button">
+                What services does your construction management application provide?
+            </a>
+            <ul class="dropdown-menu mb-3">
+                <li class="dropdown-item">
+                    <p class="text-wrap">Our application offers comprehensive construction management services, including accurate material estimation, project cost calculation, and efficient project management. <br>
+                    We simplify the construction process by providing insights, managing resources, and ensuring your project is completed on time and within budget</p>
+                </li>
+            </ul>
+           </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8 offset-md-2 mt-3">
+            <div class="dropdown">
+                <a href="#" class="btn btn btn-secondary w-100" role="button" style="text-align: left;" data-bs-toggle="dropdown">
+                     How does your application calculate the total cost of my project?
+                </a>
+                <ul class="dropdown-menu mb-3">
+                    <li class="dropdown-item">
+                        <p class="text-wrap">
+                            We use advanced estimation techniques, such as the Theil-Sen estimator, to predict the quantity of materials required based on your project's land area. Our system then calculates the total project cost by combining these quantities with pre-defined material costs, 
+                            ensuring precise and reliable budgeting.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8 offset-md-2 mt-3">
+            <div class="dropdown">
+                <a href="#" class="btn btn-secondary w-100" style="text-align: left;" role="button" data-bs-toggle="dropdown">
+                    Can your application handle different types of construction projects?
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item">
+                        <p class="text-wrap">
+                            Absolutely! Whether you're planning a residential, commercial, or industrial project, our application is designed to adapt to various construction needs, providing tailored material estimations 
+                            and cost calculations specific to your project type.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="row">
+        <div class="col-md-8 offset-md-2 mt-3">
+            <div class="dropdown">
+                <a href="#" class="btn btn-secondary w-100" style="text-align: left;" role="button" data-bs-toggle="dropdown">
+                    How accurate are your material estimations?
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item">
+                        <p class="text-wrap">
+                            Our estimations are based on proven algorithms and industry standards to ensure high accuracy. We continuously refine our calculations to account for factors
+                            such as material quality and project specifications, ensuring you get the most precise results.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row" style="margin-bottom:120px">
+        <div class="col-md-8 offset-md-2 mt-3">
+            <div class="dropdown">
+                <a href="#" class="btn btn-secondary w-100" style="text-align: left;" role="button" data-bs-toggle="dropdown">
+                    Is my data safe and secure on your platform?
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item">
+                        <p class="text-wrap">
+                            Yes, data security is our top priority. We implement industry-leading security measures to protect your information, ensuring that all your project details and personal data are safely stored and handled with the utmost confidentiality. </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!----------------FAQ_END---------------->
+    
+</div><!----------Containerend----->
+</div>
+
+<div class="container mb-5">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-5 offset-md-1">
+                <div class="card-body">
+                    <h3 id="cdlg">Login</h3>
+                    <span class="text-muted">"Unlock your project now!"</span> <br>
+                    <a href="/customer_login" class="btn btn-lg btn-primary w-50 mt-1" >Log in</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h3 id="cdlg">Get Started</h3>
+                    <span class="text-muted">"Sign up now to get started!"</span> <br>
+                    <a href="/customer_signup" class="btn btn-primary btn-lg w-50 mt-1" >Sign up</a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col">
+                <div class="card-body text-center">
+                    <span id="quote" class="text-muted">
+                        "Elevate your construction projects with our cutting-edge management and estimation tools. Seamlessly transform your plans into precision and efficiency—experience the future of construction today!"
+                    </span>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    </div> 
+    <!------------->
+
+</body>
+</html>
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>-->
+

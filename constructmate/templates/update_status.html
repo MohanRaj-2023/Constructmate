@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update_status</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container" style="margin-top: 80px;">
+    <div class="text-center mb-3">
+        <h3 style="font-size: 20px; font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Update Project Status</h3>
+    </div>
+
+    <div class="row">
+        <div class="offset-md-4 col-md-5 col-lg-4">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success text-white text-center bg-success">
+            {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            
+            <div class="card">
+                <div class="card-body">
+                    <form action="/update_status/{{project_id}}" method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <textarea name="status" id="status" class="w-100"  placeholder="Enter current status of project" rows="4" cols="4" ></textarea>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <button class="btn btn-success" type="submit">Update</button>
+                        </div>
+                        <div class="mb-3">
+                            <p><b class="text-muted">Note:</b> If the project is finished: Enter <b>'Project Completed'</b> if the work is fully complete.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+<script>
+    $(document).ready(function(){
+      $(".alert").hide(3000);
+    });
+</script>

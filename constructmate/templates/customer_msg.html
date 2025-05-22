@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<!---Navbar---->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand text-light" style="padding-left: 10px;">Constructmate</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="/customer_home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/customer_about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="customer_to_manager"  class="nav-link" type="button">Send message</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/customer_message" class="nav-link active" >Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/customer_interface" class="nav-link" >My Account</a>
+                </li>
+                
+                <li class="nav-item" style="padding-right: 50px;" >
+                    <a href="/logout_customer" class="nav-link">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+<!---Navbar_End----->
+
+    <div class="container" style="margin-top: 120px;">
+        <div class="row">
+            <div class="col-md-5 col-lg-4  offset-md-4 mb-5 ">
+                    <div class="card">
+                        <div class="card-header">
+                            <a href="#" class="h3" style="text-decoration: none;">Messages</a>
+                        </div>
+                        
+                        <div class="card-body">
+                            {% if messages %}
+                            {% for message in messages %}
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td> 
+                                            <b>{{ message.sender }}</b> <br>
+                                            <a href="/view_customer_message/{{message.id}}" style="text-decoration: none;">
+                                            {{ message.description|slice:":50" }}{% if message.description|length > 50 %}...{% endif %}
+                                           </a> <br>
+                                           <span class="d-flex justify-content-end small text-muted">{{ message.timestamp }}</span>
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {% endfor %}
+                            {% else %}
+                            <p class="mb-3 text-center">Nothing!</p>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+            </div>
+            
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container text-center" style="margin-top: 80px;">
+    <div class="row">
+        <div class="col">
+                <h3 style="font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Projects</h3>
+        {% if projects  %}  
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-sm mt-3">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>Customer_Name</th>
+                            <th>Building_Type</th>
+                            <th>View_Details</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for project in projects %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ project.Customer.Name }}</td>
+                            <td>{{ project.Building_type }}</td>
+                            <td><a href="/view_project/{{ project.id }}" class="btn btn-primary" target="_blank">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>    
+        {% else %}
+                <div class="text-center mt-5">
+                    <span style="font-size: 20px; font-family: Arial, Helvetica, sans-serif;">No New projects!</span>
+                </div>
+        {% endif %}          
+        
+            </div>
+    
+        </div>
+    </div>
+</div>
+</body>
+</html>

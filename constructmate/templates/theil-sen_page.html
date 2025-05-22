@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theil-sen</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<div class="container" style="margin-top: 50px;">
+    <div class="row">
+        <div class="offset-sm-2 col-sm-9 offset-md-3 col-md-7 col-lg-6 ">
+            <h3 style="font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Estimate Materials & Project Cost</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6 col-lg-5">
+            <div class="card-body mt-4" style="background-color: #f5f5f5; border: 1px solid black;">
+                <form action="/estimate_materials/{{ construction_id }}" method="POST" novalidate id="theil-sen_form">
+                    {% csrf_token %}
+                    
+                    {% if project_id %}
+                    <div class="mb-3 text-center mt-3">
+                        <a href="/get_land_area/{{project_id}}" id="landarea" class="btn btn-danger">Get Land area</a>
+                        <div class="form-text">Click Get Land arae to get land area</div>
+                    </div>
+                   {% endif %}
+
+                    {% if land_area %}
+                    <div class="mt-4 mb-3 ml-2"> 
+                        <label for="Customer" class="form-label" style="padding-left: 20px; padding-top: 10px; font-size: 18px; font-family:Cambria, Cochin, Georgia, Times, serif; font-weight: bold;">Customer</label>
+                        <input type="text" name="Customer" id="Customer" value="{{customer}}" class="form-control  w-50" style="margin-left: 20px;"  readonly> 
+                    </div>
+
+                    <div class="mt-4 mb-3 ml-2"> 
+                    <label for="land_area" class="form-label" style="padding-left: 20px; padding-top: 10px; font-size: 18px; font-family:Cambria, Cochin, Georgia, Times, serif; font-weight: bold;">Land_area</label>
+                    <input type="text" name="land_area" id="land_area" value="{{land_area}}" class="form-control  w-50" style="margin-left: 20px;"  readonly> 
+                    <div class="form-text" style="padding-left: 20px;">To estimate required materials</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="materials_expectations" style="padding-left: 20px; padding-top: 10px; font-weight: bold; font-size: 18px; font-family:Cambria, Cochin, Georgia, Times, serif;">Materials_expectation</label>
+                        <input type="text" name="materials_expectations" id="materials_expectations" class="form-control w-50" style="margin-left: 20px;" value="{{materials_expectations}}" readonly>
+                        <div class="form-text" style="padding-left: 20px;">To estimate project cost</div>
+                    </div>
+
+                    <div class="d-flex justify-content-end ">
+                        <button class="btn btn-primary" style="margin-right:30px; margin-bottom:20px;" type="submit">Run Analysis</button>
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div> 
+
+
+</body>
+</html>

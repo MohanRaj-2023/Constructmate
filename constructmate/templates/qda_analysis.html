@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QDA_Analysis</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 50px;">
+    <div class="row">
+        <div class="offset-sm-4 col-sm-6 col-lg-4 text-center">
+            <h3 style="font-family: 'Times New Roman', Times, serif; text-decoration: underline;">QDA Analysis</h3>
+        </div>
+    </div>
+    {% if project_id or Data %}
+    <div class="row">
+        <div class="offset-sm-4 col-sm-6 col-lg-4 mt-5 ">
+            <div class="card">
+                <div class="card-body" style="border: 1px solid black; background-color: #E3F2FD;">
+                    <form action="/run_qda" method="POST" id="qda_form" novalidate id="qda_analysis">
+                        {% csrf_token %}
+    
+                        {% if project_id %}                
+                        <div class="mb-3 mt-3">
+                            <a href="/get_expectation/{{project_id}}" class="btn btn-danger" id="navigate" onclick="get_customer_id()">Get Data</a> <br>
+                            <span class="form-text">Clik Get Data to get the customer expectation input</span>
+                        </div>
+                        {% endif %}                 
+    
+                        {% if Data %}
+                        <div class="mb-3">
+                            <label for="materials" class="form-label">Customer_Expectations</label>
+                            <textarea name="expectation" id="expectation" class="form-control" rows="4" style="direction:ltr">{{ Data }}</textarea>
+                        </div>
+    
+                        <div class="mb-3 text-center">
+                            <button class="btn btn-primary" id="run_qda" type="submit">Run QDA Analysis</button>
+                        </div>
+                       {% endif %}
+    
+                    </form>
+    
+                </div>
+            </div>
+            
+        </div>
+       
+    </div>
+    {% endif %}
+<!---REsult_------>
+
+{% if Qda_result.categorized_data != None %}
+<div class="row">
+        <div class="offset-sm-4 col-sm-6 col-lg-4 mt-4 mb-5" style="border: 1px solid black; background-color: #E3F2FD;">
+            <div class="card-footer">
+                <div class="mb-3">
+                 <label for="QDA_Output" class="form-label"><b style="text-decoration: underline; margin-top: 10px;">QDA_Output:</b></label>
+                   <div>
+                    {% if Qda_result.categorized_data %}
+                     <ul>
+                        {% for data in Qda_result.categorized_data %}
+                                <li>{{ data }}</li>
+                        {% endfor %}  
+                     </ul>
+                     {% else %}
+                     <ul>
+                        <li class="text-center mt-5">No QDA output for the customer expectation.</li>
+                     </ul>
+                    {% endif %}   
+                   </div>
+                           
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+  <!---Result_End----> 
+</div>
+</body>
+</html>
+
+<script>
+
+/**function Run_qda(){
+    var manager_id = document.getElementById('Manager_id').value;
+    var numeric_manager_id = Number(manager_id);
+
+    if (manager_id &&  numeric_manager_id ){
+        var Form = document.getElementById('qda_form');
+        Form.action=`/run_qda/${manager_id}`;
+        window.location.href=Form.action;
+    }else{
+        alert("Enter valid manager id...");
+    }
+}
+**/
+</script>
+
+<script>
+    $(document).ready(function(){
+      $(".alert").hide(3000);
+    });
+</script>
+

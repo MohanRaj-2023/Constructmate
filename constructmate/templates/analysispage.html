@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container" style="margin-top: 50px;">
+<div class="row">
+    <div class="offset-md-3 col-md-6">
+        <p style="font-family: 'Times New Roman', Times, serif; font-size: 20px; text-align: center;">"Analyze with ease using our powerful QDA and Theil-Sen tools for accurate project insights."</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="offset-md-1 col-md-4 mt-5 text-center">
+        <p>"Use the QDA tool to classify and analyze your project <b>quatitative inputs</b> ."</p> <br>
+
+            <a href="/qda_analysis_page/{{project_id}}" class="btn btn btn-success mt-xl-4 mt-lg-5  ">Start QDA Analysis</a>
+
+        
+    </div>
+
+    <div class="offset-md-1 col-md-5 col-lg-4 mt-5 text-center">
+        <p>"Utilize the Theil-Sen Estimator to accurately predict material requirements and project costs based on your <b>land area inputs</b>."</p>
+        <a href="/theil_sen_analysis/{{project_id}}" class="btn btn btn-primary mt-lg-4">Determine material requirement</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>

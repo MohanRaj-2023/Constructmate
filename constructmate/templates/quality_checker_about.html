@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<!---Navbar---->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand text-light" style="padding-left: 10px;">Constructmate</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="/quality_checker_home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/quality_checker_about" class="nav-link active" >About</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Send Messgae</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/quality_checker_to_manager_msg" class="dropdown-item">To <b>Manager</b></a></li>
+                        <li><a href="/quality_checker_to_vendor_msg" class="dropdown-item">To <b>Vendor</b></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="/quality_checker_msg" class="nav-link">Messages</a>
+                </li>
+                <li class="nav-item"></li>
+                    <a href="/quality_checker_interface" class="nav-link " >My Account</a>
+                </li>
+                <li class="nav-item" style="padding-right: 50px;">
+                    <a href="/logout_quality_checker" class="nav-link">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+<!---Navbar_End----->
+
+<div class="container-fluid" style="margin-top: 120px;" >
+
+        <div class="row">
+            <div class="offset-lg-1 col-lg-4">
+                <p style="font-size: 30px; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; padding-left: 10px;">About</p> 
+                <p style="font-size: 18px; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; padding: 0px;">
+                    Welcome to Constructmate – where construction management meets innovation. Our platform simplifies project workflows with precise material estimation, efficient management tools, and seamless communication. We are committed to transforming the construction industry with technology that drives efficiency and accuracy. Join us in building a better tomorrow, one project at a time.
+                </p>
+            
+            </div>
+            <div class="offset-lg-1 col-lg-6 mb-5">
+                <img src="{% static 'images/about.jpg' %}" alt="about" class="img-fluid " >
+            </div>
+        </div>
+
+    
+</div>
+</body>
+</html>

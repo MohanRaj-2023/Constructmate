@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qc_result</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container " style="margin-top: 100px;">
+    <div class="text-center mb-4">
+        <h3 style="font-size: 20px; font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Quality Check Approval </h3>
+    </div>
+    <div class="row mt-4">
+        {% if projects %}
+        <div class="col">
+            <table class="table table-bordered table-responsive text-center border-dark">
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>Project_id</th>
+                        <th>Project_Manager</th>
+                        <th>Quality_Checker</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                               
+                <tbody>
+                  {% for project in projects %}               
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ project.id}}</td>
+                        <td>{{ project.Project_manager}}</td>
+                        <td>{{ project.quality_checker}}</td>
+                        {% if project.Status == "Material Delivery Request Sent To Vendor." %}
+                        <td><a href="/deliver_materials" class="btn btn-success btn-sm" role="button">Deliver_Materials</a></td>
+                        {% elif project.Status == 'Re-Prepare Failed Materials' %}
+                        <td><a href="/vendor_reprepare_materials" class="btn btn-secondary btn-sm" role="button" >Re-Prepare Materials</a></td>
+                        {% else  %}
+                        <td><a href="#" class="btn btn-dark btn-sm" role="button" >QC Update Pending</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+        {% else %}
+        <div class="text-center mt-4">
+        <h3>No Projects....!</h3>
+        </div>
+        {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

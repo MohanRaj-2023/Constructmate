@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submitted</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/customer.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="offset-md-2 col-md-8">
+            <center style="margin-top: 150px; font-family: 'Times New Roman', Times, serif; font-size: 20px;">
+                <span>Thank you! for submitting the initiation form. Our Project Manager will review your details and prepare a comprehensive project report. You'll receive the report shortly.</span>
+            </center>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-md-2 col-md-8 text-center mt-5">
+            <a href="/customer_interface" class="btn btn-danger">Go back</a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

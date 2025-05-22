@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updated_details</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="offset-md-4 col-md-4 text-center mb-1 ">
+                <h3 style="font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Updated Project Details</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-md-2 col-md-8 mt-4 text-center">
+                <table class="table table-sm table-bordered table-responsive border-dark">
+                    
+                    <tbody>
+                        <tr>
+                            <th>Project_ID</th>
+                            <td>{{ project.id }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Building_Type</th>
+                            <td>{{ project.Building_type }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Land_Area</th>
+                            <td>{{ project.Land_area }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Soil_Type</th>
+                            <td>{{ project.Soil_type }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Soil_condition</th>
+                            <td>{{ project.Soil_condition }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Materials_expectations</th>
+                            <td>{{ project.Materials }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>Expectations</th>
+                            <td>{{ project.Expectation }}</td>
+                        </tr>
+                        
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+        <!---------------->
+        <div class="row">
+            <div class="col text-center">
+                <p>Please confirm that the updated project details meet your expectations by approving the changes.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-md-2 col-md-4 mb-3 text-center">
+                <a href="/project_update_accepted" class="btn btn-success" style="width: 150px;">Approve</a> 
+            </div>
+            <div class="offset-md-0 col-md-4 text-center mt-1 mb-2">
+                <a href="/project_declined" class="btn btn-danger" style="width: 150px;" target="_blank">Decline</a> 
+            </div>
+        </div>
+    </div>
+</body>
+</html>

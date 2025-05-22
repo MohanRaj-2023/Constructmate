@@ -1,0 +1,52 @@
+#intro{
+    font-family: Arial;
+    font-weight: 300;
+    font-size: 50px;
+}
+
+#feature{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+}
+
+#getstart{
+    align-items: center;
+}
+#faq{
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.18px;
+}
+#qabt{
+    font-size: 30px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+}
+#quest{
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.dropdown-menu {
+    position: relative;  /* Enable vertical scrolling */
+}
+
+#cdlg{
+    font-size: 50px;
+    font-family: "Artifakt Legend", Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+#quote{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.th{
+    text-align: center; 
+    vertical-align: middle;
+}
+
+
+body{
+    background-color: #F4F5F8;
+}

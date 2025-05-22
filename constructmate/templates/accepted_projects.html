@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accepted Projects</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        table, td, th, tr {
+            padding: 0px;
+            border: 1px solid black;
+        }
+   
+
+    </style>
+</head>
+<body>
+<div class="container" style="margin-top: 60px;">
+    <div class="mb-4 text-center">
+        <h3 style="font-size: 20px; font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Proceed The Project</h3>
+    </div>
+
+    <div class="row">
+        <div class="offset-md-3 col-md-5 text-center">
+            {% if proceed_to_vendor %}
+            <!-- Display the table with project details and buttons to request materials -->
+            <table class="table table-bordered table-responsive">
+                <tbody>
+                    <tr>
+                        <th>Project_id</th>
+                        <td>{{ project.id }}</td>
+                    </tr>   
+                    <tr>
+                        <th>Customer</th>
+                        <td>{{ project.Customer.Name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Building_type</th>
+                        <td>{{ project.Building_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Materials_report</th>
+                        <td><a href="{{ project.materials_report.url }}" target="_blank">{{ project.materials_report }}</a></td>
+                    </tr>
+                    <tr>
+                        <th>Request_materials</th>
+                        <td><a href="/manager_to_vendor_report_page/{{ project.id }}" class="btn btn-primary btn-sm">Send to Vendor</a></td>
+                    </tr>
+                    <tr>
+                        <th>Quality_check</th>
+                        <td><a href="/manager_to_quality_checker_report_page/{{ project.id }}" class="btn btn-secondary btn-sm">Send to Quality Checker</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        {% elif analyse_project %}
+            <!-- Display the message to the manager to analyze the project -->
+            <div class="alert alert-warning text-center">
+                <p>{{ analyse_project }}</p>
+            </div>
+        {% else %}
+            <!-- Default message if no specific action is needed -->
+            <div class="alert alert-info text-center">
+                <p>No action required for this project at the moment.</p>
+            </div>
+        {% endif %}
+        
+    </div>
+</div>
+</body>
+</html>

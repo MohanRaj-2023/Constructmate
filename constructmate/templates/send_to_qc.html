@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send_to_Qc</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container" style="margin-top: 60px;">
+    <div class="row">
+        <div class="col">
+            <p class="text-center" style="font-size: 20px; font-family: 'Merriweather', serif;">
+                "Enter the prepared quantity of materials along with their grade, and submit them for quality check."
+            </p>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="offset-md-2 col-md-8 mt-4 ">
+            
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success text-white text-center bg-success">
+            {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            <div class="card mb-5">
+                <div class="card-header text-center" style="font-family: 'Times New Roman', Times, serif; font-size: 20px; text-decoration: underline;">
+                    Material Preparation and Submission Form
+                </div>
+                <div class="card-body">
+                    <!------------>
+                    <form action="/submit_materials_to_qc" method="POST" id="qcform" novalidate>
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="project_id" class="form-label">Project_id</label>
+                            <input type="text" name="project_id" class="form-control" required autocomplete="off">
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sand" class="form-label">Sand_quantity</label>
+                            <input type="text" name="sand_quantity" class="form-control" required autocomplete="off">
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sand" class="form-label">Sand_grade</label>
+                        <select name="sand_grade" id="sand_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="cement" class="form-label">Cement_quantity</label>
+                            <input type="text" name="Cement_quantity" class="form-control" required autocomplete="off">
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="cement" class="form-label">Cement_grade</label>
+                        <select name="cement_grade" id="cement_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="steel" class="form-label">Steel_quantity</label>
+                            <input type="text" name="steel_quantity" class="form-control" required autocomplete="off">
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+
+                        <div class="mb-3">
+                        <label for="steel" class="form-label">Steel_grade</label>
+                        <select name="steel_grade" id="steel_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="aggregate" class="form-label">Aggregate_quantity</label>
+                            <input type="text" name="aggregate_quantity" class="form-control" required autocomplete="off">
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+
+                        <div class="mb-3">
+                        <label for="aggregate" class="form-label">Aggregate_grade</label>
+                        <select name="aggregate_grade" id="aggregate_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="bricks" class="form-label">Bricks_quantity</label>
+                            <input type="text" name="bricks_quantity" class="form-control" required autocomplete="off">
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+
+                        <div class="mb-3">
+                        <label for="bricks" class="form-label">Bricks_grade</label>
+                        <select name="bricks_grade" id="bricks_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <!------------>
+
+                        <div class="mb-3">
+                            <label for="insulation" class="form-label">Insulation_quantity</label>
+                            <input type="text" name="insulation_quantity" class="form-control" required autocomplete="off">
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="insulation" class="form-label">Insulation_grade</label>
+                        <select name="insulation_grade" id="insulation_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="adhesive" class="form-label">Adhesive_quantity</label>
+                            <input type="text" name="adhesive_quantity" class="form-control" required autocomplete="off">
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+
+                        <div class="mb-3">
+                        <label for="adhesive" class="form-label">Adhesive_grade</label>
+                        <select name="adhesive_grade" id="adhesive_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="concrete_blocks" class="form-label">Concrete_blocks_quantity</label>
+                            <input type="text" name="concrete_blocks_quantity" class="form-control" required autocomplete="off">
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="concrete_blocks" class="form-label">Concrete_blocks_grade</label>
+                        <select name="concrete_blocks_grade" id="concrete_blocks_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="wood" class="form-label">Wood_quantity</label>
+                            <input type="text" name="wood_quantity" class="form-control" autocomplete="off" required>
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="wood" class="form-label">Wood_grade</label>
+                        <select name="wood_grade" id="wood_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="gravel" class="form-label">Gravel_quantity</label>
+                            <input type="text" name="gravel_quantity" class="form-control" autocomplete="off" required>
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gravel" class="form-label">Gravel_grade</label>
+                        <select name="gravel_grade" id="gravel_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="electrical_wire" class="form-label">Electrical_wire_quantity</label>
+                            <input type="text" name="electrical_wire_quantity" class="form-control" autocomplete="off" required>
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="electrical_wire" class="form-label">Electrical_wire_grade</label>
+                        <select name="electrical_wire_grade" id="electrical_wire_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="pipes" class="form-label">Pipes_quantity</label>
+                            <input type="text" name="pipes_quantity" class="form-control" autocomplete="off" required>
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pipes" class="form-label">Pipes_grade</label>
+                        <select name="pipes_grade" id="pipes_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="paint" class="form-label">Paint_quantity</label>
+                            <input type="text" name="paint_quantity" class="form-control" autocomplete="off" required>
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="paint" class="form-label">Paint_grade</label>
+                        <select name="paint_grade" id="paint_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <!------------>
+                        <div class="mb-3">
+                            <label for="tiles" class="form-label">Tiles_quantity</label>
+                            <input type="text" name="tiles_quantity" class="form-control" autocomplete="off" required>
+                            <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tiles" class="form-label">Tiles_grade</label>
+                        <select name="tiles_grade" id="tiles_grade" class="form-select" required>
+                            <option value="" selected disabled>----Select----</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                        </select>
+                        <div class="invalid-feedback">Enter This Field</div>
+                        </div>
+                    <!------------------------->
+                    <div class="mb-3 mt-5 text-center">
+                        <button class="btn btn-success w-50" type="submit">Submit</button>
+                    </div>
+        
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('qcform');
+    
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+    
+            // Function to validate each input
+            function validateField(field) {
+                if (field.type === 'text' && field.value.trim() === '') {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else if (field.tagName === 'SELECT' && field.value === '') {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            }
+    
+            // Validate all text inputs
+            const textInputs = form.querySelectorAll('input[type="text"]');
+            textInputs.forEach(validateField);
+    
+            // Validate all selects
+            const selects = form.querySelectorAll('select');
+            selects.forEach(validateField);
+    
+            // Prevent form submission if any field is invalid
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    
+        // Optional: Real-time validation
+        form.addEventListener('input', function(event) {
+            if (event.target.matches('input[type="text"], select')) {
+                validateField(event.target);
+            }
+        });
+    });
+</script>
+    
+<script>
+    $(document).ready(function(){
+      $(".alert").hide(3000);
+    });
+</script>

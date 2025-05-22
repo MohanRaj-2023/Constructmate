@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materials_&material_and_cost_estimation</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        table,td,th{
+            padding: 0px;
+            border: 1px solid black;
+        }
+        td {
+            font-family: 'Arial', sans-serif; /* Default font family */
+            color: #333; /* Dark gray color for text */
+            line-height: 1.6; /* Space between lines */
+            margin: 20px;
+        }
+
+
+
+
+
+    </style>
+
+</head>
+<body>
+    
+    <div class="container mt-5 ">  
+        {% if data %}
+            <div class="row">
+                <div class="offset-md-2 col" style="text-align:left;" >
+                    <h3 style="font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Report For Customer:</h3>
+                </div>
+            </div>
+        <div id="customer_report_section">
+            <div class="row">
+                <div class="col-lg-8 col-md-9 offset-md-2" >
+                    <div class="mb-2 mt-3 text-center">
+                        <p style="font-family: 'Times New Roman', Times, serif; text-decoration: underline;">ESTIMATION REPORT OF CUSTOMER: <b style="font-size: 20px;">{{data.customer}}</b></p>
+                    </div>
+                        <table class="table table-sm table-responsive mt-3 text-center">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" style="font-family: 'Times New Roman', Times, serif;">MATERIALS & PROJECT COST ESTIMATION REPORT</th>
+                                </tr>
+                                <tr style="font-family: 'Times New Roman', Times, serif;">
+                                    <th>SI:NO</th>
+                                    <th>REQUIRED_MATERIALS</th>
+                                    <th>MATERIAL_QUANTITY</th>
+                                    <th width="170px">PRICE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for material,info in data.material_and_cost_estimation.items %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ material }}</td>
+                                    <td>{{ info.0 }}<b class="text-muted"> per {{ info.1 }}</b></td>
+                                    <td>₹{{ info.2 }}</td> 
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <th colspan="3" style="font-family: 'Times New Roman', Times, serif;">TOTAL_COST</th>
+                                    <td > <span style="font-weight: bold;">₹{{ data.total_cost }}</span> </td>
+                                </tr>   
+                            </tbody>
+                        </table>
+                </div>
+            <!----Download---->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="d-flex justify-content-end mb-3">
+                <div class="col-md-4 offset-md-8">
+                    <button class="btn btn-sm btn-danger" id="download_customer_report_content"   style="font-weight: bold;">Download As PDF</button> <br>     
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-flex justify-content-end">
+                <div class="col-md-4 offset-md-8">
+                    <a href="/manager_to_customer_report" class="btn btn-sm btn-success" target="_blank" id="save_customer_report" role="button"  style="font-weight: bold;">Send to customer</a> <br>     
+                </div>
+            </div>
+        </div>
+
+        <!----------------->
+        <hr>
+        <!---Report_for_vendor_and_Quality_team---->
+        
+            <div class="row" >
+                <div  class="offset-md-2 col" style="text-align:left;">
+                    <h3 style="font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Report For Vendor and Qualitychecker:</h3>
+                </div>
+            </div>
+        <div id="vendor_qc_report_section">
+            <div class="row">
+                <div class="col-lg-8 col-md-9 offset-md-2" >
+                    <div class="mb-2 mt-3 text-center">
+                        <p style="font-family: 'Times New Roman', Times, serif; text-decoration: underline;">MATERIALS FOR LAND AREA: <b>{{data.land_area}}</b></p>
+                    </div>
+                        <table class="table table-sm  table-responsive mt-3 text-center">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" style="font-family: 'Times New Roman', Times, serif;">REQUIRED MATERIALS QUANTITY AND QUALITY</th>
+                                </tr>
+                                <tr style="font-family: 'Times New Roman', Times, serif;">
+                                    <th>SI:NO</th>
+                                    <th>REQUIRED_MATERIALS</th>
+                                    <th>MATERIAL_QUANTITY</th>
+                                    <th>QUALITY</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for material,info in data.material_and_cost_estimation.items %}
+                                <tr> 
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ material }}</td>
+                                    <td>{{ info.0 }}  <b style=" justify-content: end;" class="text-muted">per {{ info.1 }}</b></td>
+                                    <td>{{ info.3 }}</td>
+                                </tr>
+                                {% endfor %}  
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+            <div class="row">
+            <div class="d-flex justify-content-end">
+                <div class="offset-md-8 col-md-4 ;">
+                    <button class="btn btn-sm btn-danger mb-3" id="download_vendor_qc_report"  style="font-weight: bold;">Download As PDF</button> <br> 
+                </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="d-flex justify-content-end">
+                    <div class="col-md-4 offset-md-8 mb-5">
+                        <a href="/upload_materials_report" class="btn btn-sm btn-success" target="_blank" id="save_materials_report" role="button"  style="font-weight: bold;">Upload to Database</a> <br>     
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+    
+         
+           
+    </div>
+    
+
+
+    
+</body>
+</html>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
+
+<script>
+
+window.onload=function(){
+download_customer_report=document.getElementById('download_customer_report_content');
+download_customer_report.addEventListener('click',()=>{
+    const customer_report_section=document.getElementById('customer_report_section');
+    var opt = {
+                margin: [1, 0.5, 0.5, 0.5],
+                filename: 'Project_report.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 3, useCORS: true },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+    html2pdf().from(customer_report_section).set(opt).save()
+
+})
+
+download_vendor_qc_report=document.getElementById('download_vendor_qc_report');
+download_vendor_qc_report.addEventListener('click',()=>{
+    const vendor_qc_report_section=document.getElementById('vendor_qc_report_section');
+    var opt = {
+                margin: [1, 0.5, 0.5, 0.5],
+                filename: 'Materials_report.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 3, useCORS: true},
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+    html2pdf().from(vendor_qc_report_section).set(opt).save()
+
+})
+} 
+
+
+</script>

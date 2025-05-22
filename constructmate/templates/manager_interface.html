@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project_manager</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        body{
+            background-color: #F4F5F8;
+        }
+    </style>
+</head>
+<body>
+<!---Navbar---->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand text-light" style="padding-left: 10px;">Constructmate</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="/manager_home" class="nav-link" >Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/manager_about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" >Send Messgae</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/manager_to_customer_msg"  class="dropdown-item">To <b>Customer</b></a></li>
+                        <li><a href="/manager_to_vendor_msg"  class="dropdown-item">To <b>Vendor</b></a></li>
+                        <li><a href="/manager_to_quality_checker_msg" class="dropdown-item">To <b>Quality_Checker</b></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="/manager_message" class="nav-link">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/manager_interface" class="nav-link active" >My Account</a>
+                </li>
+                <li class="nav-item" style="padding-right: 50px;">
+                    <a href="/logout_manager" class="nav-link" type="button">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+<!---Navbar_End----->
+
+<!---Manager_interface------>
+<div class="container text-center" style="margin-top: 120px;">
+    <div class="row">
+        <div class="offset-4 col-md-4">
+            <div class="mb-3">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'success' %}
+                <div class="alert alert-success text-white text-center bg-success">
+                {{message}}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>  
+        </div>
+    </div>
+   
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <p style="font-size: 20px; font-family: 'Merriweather', serif;">"Manage your projects with precision and confidence - stay on top of every detail from start to finish!"</p> <br>
+        </div>
+    </div>
+    <!---New_projects_row-->
+    <div class="row">
+        <div class="offset-md-2 col-md-3">
+            <a href="/projects" class="btn btn-success" style="margin-bottom:60px" role="button">New Projects</a>
+        </div>
+        <!---New_projectend----->
+        <div class="offset-md-1 col-md-3">
+            <a href="/ongoing_projects_manager" class="btn btn-danger"  role="button" >Ongoing Projects</a>
+        </div>
+        <!---Ongoing_projects_end-->
+    </div>
+    <div class="row" style="margin-top: 50px;">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+    
+    <!-------->
+    <div class="row" style="margin-top: 30px;">
+        <div class="text-center mb-5">
+            <h3 style="font-size: 20px; font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Project Approval and Quality Assurance Interface</h3>
+        </div>
+        <div class="offset-md-1 col-lg-4">
+            <a href="/customer_approve" class="btn btn-primary w-100"  style="margin-bottom:60px"  role="button">Waiting for Customer Acceptence</a> 
+        </div>
+        <!---New_projectend----->
+        <div class="offset-md-1 col-lg-4">
+            <a href="/quality_check_update" class="btn btn-dark w-100" style="margin-bottom:60px; width: 150px;">Waiting for materials Approval</a>
+        </div>
+        <!---Ongoing_projects_end-->
+    </div>
+    <!-------->
+    
+</div>
+<!---Manager_interface_End-->
+</body>
+</html>
+
+
+<script>
+    $(document).ready(function(){
+      $(".alert").hide(4000);
+    });
+</script>

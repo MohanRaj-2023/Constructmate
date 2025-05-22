@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notify_to_Deliver</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container" style="margin-top: 80px;">
+    <div class="text-center mb-5">
+        <h3 style="font-size: 20px; font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Material Delivery Notification to Vendor</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success text-white text-center bg-success">
+            {{message}}
+            </div>
+            {% else %}
+            <div class="alert alert-danger text-white text-center bg-danger">
+                {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            <div class="card">
+                <div class="card-body">
+                    <form action="/notify_to_deliver" method="POST" id="notify_form" novalidate>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="Project_id" class="form-label">Project_id</label>
+                            <input type="text" name="project_id" placeholder="Enter Project_id" autocomplete="off" class="form-control" required>
+                            <div class="invalid-feedback">Enter Project Id</div>
+                        </div>
+                        <div class="mb-3 text-center">
+                            <button class="btn btn-primary" type="submit">Notify Vendor for Delivery</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('notify_form');
+    
+        // Function to validate text input
+        function validateTextInput(field) {
+            if (field.value.trim() === '') {
+                field.classList.add('is-invalid');
+                field.nextElementSibling.classList.add('d-block'); // Show error message
+            } else {
+                field.classList.remove('is-invalid');
+                field.nextElementSibling.classList.remove('d-block'); // Hide error message
+            }
+        }
+    
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+    
+            // Validate project_id
+            const projectIdInput = form.querySelector('input[name="project_id"]');
+            validateTextInput(projectIdInput);
+    
+            // Prevent form submission if any field is invalid
+            if (form.querySelectorAll('.is-invalid').length > 0) {
+                event.preventDefault();
+            }
+        });
+    
+        // Optional: Real-time validation
+        form.addEventListener('input', function(event) {
+            if (event.target.matches('input[name="project_id"]')) {
+                validateTextInput(event.target);
+            }
+        });
+    });
+    </script>
+    
+<script>
+    $(document).ready(function(){
+      $(".alert").hide(3000);
+    });
+</script>

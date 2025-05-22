@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality_check</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/customer.css' %}">
+</head>
+<body>
+<div class="container" style="margin-top: 120px;">
+    
+    <div class="row">
+        <div class="offset-md-4 col-lg-4 col-md-6">
+            <div id="qc_report_section">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <table class="table table-bordered border-dark table-sm">
+                            <tr>
+                                <th>PROJECCT_ID</th>
+                                <td>{{project.id}}</td>
+                            </tr>
+                            <tr>
+                                <th>PROJECT_MANAGER</th>
+                                <td>{{project.Project_manager}}</td>
+                            </tr>
+                            <tr>
+                                <th>VENDOR</th>
+                                <td>{{project.vendor}}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <table class="table table-bordered border-dark table-sm table-responsive">
+                        <tr>
+                            <th colspan="2" style="font-family: 'Times New Roman', Times, serif; text-decoration: underline; text-align: center;">Material Quality and Quantity Evaluation Report</th>
+                        </tr>
+                        
+                        <tr>
+                            <th>Materials Sufficiency for Land Area</th>
+                            {% if not Result.sufficient_materials  %}
+                            <td>Materials are sufficienct</td>
+                            {% else %}
+                            <td>The following materials are insufficient:
+                                {% for item in Result.sufficient_materials %}
+                                <ul>
+                                    <li>{{item}}</li>
+                                </ul>
+                                {% endfor %}
+                            </td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th>Material Quality Evaluation</th>
+                            {% if not  Result.materials_quality %}
+                            <td>Materials are meet the expected quality</td>
+                            {% else %}
+                            <td>The following materials are not meet the quality:
+                                {% for item in Result.materials_quality %}
+                                <ul>
+                                    <li>{{item}}</li>
+                                </ul>
+                                {% endfor %}
+                            </td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th>Result</th>
+                            {% if Result.materials_quality  and Result.sufficient_materials   %}
+                            <td>Materials are  fail to meet quality standards and insufficient. </td>
+                            {% elif not Result.materials_quality   and Result.sufficient_materials  %}
+                            <td>Materials are meet the quality standard but not sufficienct</td>
+                            {% elif Result.materials_quality   and not Result.sufficient_materials %}
+                            <td>Materials are sufficienct but it fail to meet quality standard</td>
+                            {% else %}
+                            <td>All materials are sufficienct and meet the expected quality</td>
+                            {% endif %}
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------->
+    <div class="row">
+        <div class="d-flex justify-content-center mb-3">
+            <div class="offset-md-3 col-md-4">
+                <button class="btn btn-sm btn-danger" id="download_qc_report"   style="font-weight: bold;">Download As PDF</button> <br>     
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-flex justify-content-center mb-5">
+            <div class="offset-md-3  col-md-4">
+                <a href="/quality_checker_to_manager_report_page/{{project.id}}" class="btn btn-sm btn-success" id="send_report" role="button"  style="font-weight: bold;">Send to manager</a> <br>     
+            </div>
+        </div>
+    </div>
+<!------------------------------>
+</div>  
+</body>
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
+<script>
+window.onload=function(){
+    download_qc_report=document.getElementById('download_qc_report');
+    download_qc_report.addEventListener('click',()=>{
+        const qc_report_section=document.getElementById('qc_report_section');
+        var opt = {
+                    margin: [1, 0.5, 0.5, 0.5],
+                    filename: 'Quality_check_report.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 3, useCORS: true },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+        html2pdf().from(qc_report_section).set(opt).save()
+    
+    })
+}
+</script>

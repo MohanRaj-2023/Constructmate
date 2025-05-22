@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete_projects</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container" style="margin-top: 80px;">
+
+
+    <div class="row">
+        <div class="col text-center">
+            <h3 style="font-size: 20px; font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Complete Projects</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-md-3 col-md-6 mt-3 mb-3">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success text-white text-center bg-success">
+                {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+<div class="row">
+    <div class="col mt-5">
+        {% if projects %}
+        <table class="table table-bordered border-dark table-sm table-hover text-center">
+            <thead>
+                <tr>
+                    <th>SI:NO</th>
+                    <th>PROJECT_ID</th>
+                    <th>PROJECT_MANAGER</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ project.id }}</td>
+                    <td>{{ project.Project_manager}}</td>
+                    <td>{{ project.Status }}</td>
+                    <td><a href="/delete_completed_project/{{project.id}}" class="btn btn-danger btn-sm">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="mb-3 mt-5 text-center">
+            <h3>No Projects...</h3>
+        </div>
+        {% endif %}
+    </div>
+</div>
+</div>
+</body>
+</html>
+
+<script>
+    $(document).ready(function(){
+      $(".alert").hide(3000);
+    });
+</script>

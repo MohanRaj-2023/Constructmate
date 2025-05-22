@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reprepare_materials</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container" style="margin-top: 80px;">
+    <div class="text-center mb-4">
+        <h3 style="font-size: 20px; font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Requst To Reprepare</h3>
+    </div>
+
+    <div class="row">
+        <div class="offset-md-3 col-md-6 text-center " >
+            {% if projects %}
+            <table class="table table-bordered border-dark table-sm">
+                {% for project in projects %}
+                <tr>
+                    <th>Project_id</th>
+                    <td class="text-center">{{project.id}}</td>
+                </tr>
+                <tr>
+                    <th>Project_Manager</th>
+                    <td class="text-center">{{project.Project_manager}}</td>
+                </tr>
+                <tr>
+                    <th>Quality_Checker</th>
+                    <td class="text-center">{{project.quality_checker}}</td>
+                </tr>
+                <tr>
+                    <th>QC_Report</th>
+                    <td><a href="{{project.quality_check_report.url}}">{{project.quality_check_report}}</a></td>
+                </tr>
+                <tr>
+                    <th>Action</th>
+                    <td class="text-center"><a href="/submit_materials_to_qc" class="btn btn-danger btn-sm ">Re-prepare</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

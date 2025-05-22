@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qc_result</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container " style="margin-top: 100px;">
+    <div class="text-center">
+        <h3 style="font-size: 20px; font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Materials Approval From Quality Checker</h3>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+        {% if projects %}
+            <table class="table table-bordered table-responsive text-center border-dark text-center table-hover">
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>Project_id</th>
+                        <th>Customer</th>
+                        <th>Status</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                </thead>
+                               
+
+                <tbody>
+                  {% for project in projects %}                
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ project.id}}</td>
+                        <td>{{ project.Customer.Name}}</td>
+                        {% if project.Status == "Quality Check report has been sent to the Project Manager." %}
+                        <td><span class="badge bg-success rounded-pill">Quality Check Completed</span> <hr>
+                            <a href="{{project.quality_check_report.url}}" class="btn btn-danger btn-sm">Download QC Report</a></td>
+                        {% elif project.Status == 'Materials Report have been prepared and sent to the quality checker for inspection from project manager.' %}
+                        <td><span class="badge bg-secondary rounded-pill" >Vendor Report Not Submitted</span></td>
+                        {% elif project.Status == 'Materials have been prepared and sent to the quality checker for inspection from vendor.'  %}
+                        <td><span class="badge bg-dark rounded-pill">QC Not Proceed</span></td>
+                        {% else %}
+                        <td><a href="#" class="btn btn-dark btn-sm">Re-Prepare Requested To Vendor</a> <hr>
+                            <a href="{{project.quality_check_report.url}}" class="btn btn-danger btn-sm">View QC Report</a>
+                        </td>
+                        {% endif %}
+
+                        {% if project.Status == 'Materials Report have been prepared and sent to the quality checker for inspection from project manager.' or project.Status == 'Materials have been prepared and sent to the quality checker for inspection from vendor.' %}
+                        <td><a href="/notify_to_deliver" class="btn btn-success btn-sm disabled" style="width: 150px;">Deliver Materials</a></td>
+                        <td><a href="/reprepare_materials" class="btn btn-danger btn-sm disabled" style="width: 150px;">Prepare Again</a></td>
+                        {% else %}
+                        <td><a href="/notify_to_deliver" class="btn btn-success btn-sm m-4" style="width: 150px;" target="_blank" >Deliver Materials</a></td>
+                        <td><a href="/reprepare_materials" class="btn btn-danger btn-sm m-4" style="width: 150px;" target="_blank">Prepare Again</a></td>
+                        {% endif %}
+                        
+                    </tr>
+                    {% endfor %}
+        
+        {% else %}
+        <div class="text-center mt-5">
+        <h3>No Projects....!</h3>
+        </div>
+        {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<!---Navbar---->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand text-light" style="padding-left: 10px;">Constructmate</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="/customer_home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/customer_about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="customer_to_manager" class="nav-link" type="button">Send message</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/customer_message"  class="nav-link active" >Messages</a>
+                </li>
+                <li class="nav-item" style="padding-right: 50px;" >
+                    <a href="/logout_customer" class="nav-link">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+<!---Navbar_End----->
+
+<div class="container" style="margin-top: 120px;">
+    <div class="row">
+        <div class="col-lg-6 col-md-7 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <span style="font-weight: bold; font-family:Arial, Helvetica, sans-serif; font-size: 20px;">Message</span>
+                </div>
+            
+                <div class="card-body">
+                    <table class="table" >
+                        <tbody>
+                        {% if message %}
+                            <tr>
+                            <b style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">From:</b><span style="font-size: 19px; font-weight: 400;"> {{message.sender}}</span> 
+                            </tr><br>
+                            <tr>
+                               <div class="mt-2">
+                                <b style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">Subject:</b><span> {{message.subject}}</span>
+                               </div> 
+                            </tr>
+                        
+                            <tr>
+                                {% if  message.subject != 'Update In Project Details' %}
+                                <p class="w-100 pt-2">{{message.description}}</p>
+                                {% else %}
+                                <p class="mt-5">
+                                    {{message.description}}
+                                </p>
+                                <div class="mb-3 text-center mt-2">
+                                    <a href="/view_updated_details/{{message.receiver_object_id}}" class="btn btn-sm btn-danger">View Updated Details</a>
+                                </div>
+                                
+                                {% endif %}
+                                {% if message.file %}
+                                <b style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">attachment:</b> <a href="{{message.file.url}}">{{message.file}}</a>
+                                {% endif %}
+                            </tr>
+
+                            <br>
+                            {% if message.subject == 'Project Report Submission for Customer Review and Acceptance' %}
+                                <tr>
+                                    <span>Please review the attached project report, and if everything meets your expectations, kindly confirm your acceptance to proceed with the project.</span> <br>
+                                <div class="container mt-3">
+                                    <a href="/project_accepted" class="btn btn-success btn-sm mt-md-3 mb-3">Accept and Proceed!</a> <b>(or)</b>
+                                    <a href="/project_declined" class="btn btn-danger btn-sm ml-2 mt-md-3 mb-3" style="width: auto;">Decline</a>
+                                </div>
+                                </tr>
+                            {% else %}
+                            <tr>
+                                <div class="container mt-3 d-flex justify-content-end">
+                                    <a href="/customer_to_manager" class="btn btn-success btn-sm">Send response</a> 
+                                </div> 
+                            </tr>
+                            {% endif %}
+                        {% endif %}
+                        <!----Response_submitted------->
+                        {% if resposne  %}
+                        <div class="mb-3 mt-3 text-center text-success">
+                            <b>Response Submitted!</b>
+                        </div>
+                        
+                        {% endif %}
+                        </tbody>
+                    </table>    
+                    {% if DoesNotExist %}
+                    <div class="text-center text-danger">
+                        <span style="font-family: Arial, Helvetica, sans-serif; font-weight: bold;">{{DoesNotExist}}</span>
+                    </div>
+                    {% else %}
+                    <div class="text-center text-danger">
+                        <span style="font-family: Arial, Helvetica, sans-serif; font-weight: bold;">{{already_respond}}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

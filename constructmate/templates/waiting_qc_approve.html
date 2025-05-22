@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality_approve</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-5 text-center">
+            {% if projects %}
+            <table class="table table-sm table-bordered border-dark">
+                <thead>
+                    <tr>
+                        <th>S:NO</th>
+                        <th>Project_id</th>
+                        <th>Quality_Checker</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for project in projects %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ project.id }}</td>
+                        <td>{{ project.quality_checker }}</td>
+                        <td>{{ project.Status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        .card-body{
+            border: 1px solid #c3d1ff;
+            background-color: #f0f4ff; 
+        }
+    </style>
+</head>
+<body>
+<!---Navbar---->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand text-light" style="padding-left: 10px;">Constructmate</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="/manager_home" class="nav-link" >Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/manager_about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" >Send Messgae</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/manager_to_customer_msg" class="dropdown-item">To <b>Customer</b></a></li>
+                        <li><a href="/manager_to_vendor_msg"  class="dropdown-item">To <b>Vendor</b></a></li>
+                        <li><a href="/manager_to_quality_checker_msg"  class="dropdown-item">To <b>Quality_Checker</b></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="/manager_message" class="nav-link">Messages</a>
+                </li>    
+                <li class="nav-item">
+                    <a href="/manager_interface" class="nav-link " >My Account</a>
+                </li>
+                <li class="nav-item" style="padding-right: 50px;">
+                    <a href="/logout_manager" class="nav-link" type="button">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+<!---Navbar_End----->
+
+
+<div class="container d-flex justify-content-center">
+    <div class="row">
+        <div class="col mb-5" style="margin-top: 120px;">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success text-white text-center bg-success">
+            {{message}}
+            </div>
+            {% else %}
+            <div class="alert alert-danger text-white text-center bg-danger">
+                {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            <div class="card">
+                <div class="card-header">
+                    <span style="font-family:Arial, Helvetica, sans-serif;">Send Message</span>
+                </div>
+                <div class="card-body">
+                    <form action="/manager_to_customer_msg" id="messageForm" method="POST" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="to" class="form-label" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">To</label>
+                            <input type="text" name="to" id="to" class="form-control" autocomplete="off" placeholder="Enter Name" required>
+                            <div class="invalid-feedback">Enter  This Field</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">Subject</label>
+                            <select name="subject" id="subject" class="form-select"  onchange="toggleCustomSubject(this)" required>
+                                <option value="" disabled selected>-------Select-------</option>
+                                <option value="Project Report Submission for Customer Review and Acceptance">Project Report Submission for Customer Review and Acceptance</option>
+                                <option value="Request for Materials">Request for Materials</option>
+                                <option value="Materials Quality Report: Please Verify and Approve">Materials Quality Report: Please Verify and Approve</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="invalid-feedback">Enter  This Field</div>
+                        </div>
+                        <div class="mb-3" id="custom_subjectDiv" style="display:none;">
+                            <input type="text" name="custom_subject" id="custom_subject" autocomplete="off" class="form-control" placeholder="Enter subject">
+                        </div>
+                        <div class="invalid-feedback">Enter  This Field</div>
+    
+                        <div class="mb-3">
+                            <label for="message" class="form-label" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">Message</label> <br>
+                            <textarea name="message" id="message" rows="4" cols="40" class="w-100" required></textarea>
+                            <div class="invalid-feedback">Enter  This Field</div>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="file" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">File</label>
+                            <input type="file" name="report">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <span class="form-text">select the downloaded file</span>
+                        </div>
+                        <div class="mb-3 d-flex justify-content-end">
+                            <button class="btn btn-success" type="submit">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+(function () {
+    'use strict';
+
+    // Fetch the form element
+    var form = document.getElementById('messageForm');
+    var subjectField = document.getElementById('subject');
+    var customSubjectDiv = document.getElementById('custom_subjectDiv');
+    var customSubjectInput = document.getElementById('custom_subject');
+
+    // Function to toggle custom subject field
+    function toggleCustomSubject(selectElement) {
+        if (selectElement.value === 'Other') {
+            customSubjectDiv.style.display = 'block';
+            customSubjectInput.required = true;  // Make custom subject required
+        } else {
+            customSubjectDiv.style.display = 'none';
+            customSubjectInput.required = false;  // Remove required from custom subject
+        }
+    }
+
+    // Form validation
+    form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        // Add Bootstrap validation class to trigger the invalid-feedback styles
+        form.classList.add('was-validated');
+    }, false);
+})();
+</script>
+
+<script>    
+function toggleCustomSubject(select) { 
+        const customsubjectDiv = document.getElementById('custom_subjectDiv');
+        const custom_subject = document.getElementById('custom_subject');
+        if (select.value === 'Other') {
+            customsubjectDiv.style.display = 'block';
+            custom_subject.required = true;
+        } else {
+            customsubjectDiv.style.display = 'none';
+            document.getElementById('custom_subject').value = ''; // Clear the custom input if "Other" is not selected
+            custom_subject.required= false;
+        }
+    }
+
+
+</script>
+
+
+<script>
+    $(document).ready(function(){
+      $(".alert").hide(3000);
+    });
+</script>

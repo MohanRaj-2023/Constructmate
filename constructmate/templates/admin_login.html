@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custructmate-Login</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Jquery------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<style>
+    body{
+        background-color: #F4F5F8;
+    }
+</style>
+<body>
+
+<!----Message----->
+
+<!----End_message---->
+
+
+<!---Navbar---->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand text-light" style="padding-left: 10px;">Constructmate</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="http://127.0.0.1:8000/" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/about" class="nav-link">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!---Navbar_End----->
+
+<div class="container-fluid" style="margin-top: 180px;">
+
+        <div class="row">
+            <div class="offset-sm-4 col-sm-6 col-lg-4 ">
+                  
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger text-white text-center bg-danger">
+                {{message}}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="font-family:'Times New Roman';">Login</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="/admin_login" method="post" class="needs-validation" novalidate id="login_form">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label>User_Name</label>
+                                <input type="text" name="username" id="email" class="form-control" autocomplete="off" required>
+                                <div class="invalid-feedback">Enter Username</div>
+                            </div>
+                            <div class="mb-3">
+                                <lable class="form-label">Password</lable>
+                                <input type="password" id="password" name="password" class="form-control" autocomplete="off" required>
+                                <div class="invalid-feedback">Enter password</div>
+                            </div>
+                            <div class="mb-3 text-center">
+                                <button class="btn btn-success" type="submit">Login</button>
+                            </div>                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+</body>
+</html>
+
+<script>
+    
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
+
+<script>
+    $(document).ready(function(){
+      $(".alert").hide(3000);
+    });
+</script>

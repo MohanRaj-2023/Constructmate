@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    {% load static %}
+    <!-----------link_Bootstrap----------------->
+    <link rel="stylesheet" href="{% static 'bootstrap_packages/css/bootstrap.min.css' %}">
+    <!------------Javascipt------------------------>
+    <script src="{% static 'bootstrap_packages/js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap_packages/js/bootstrap.bundle.min.js' %}"></script>
+    <!-----------link_css----------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <body><!---Navbar---->
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand text-light" style="padding-left: 10px;">Constructmate</a>
+                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a href="/quality_checker_home" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/quality_checker_about" class="nav-link" >About</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Send Messgae</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/quality_checker_to_manager_msg" class="dropdown-item">To <b>Manager</b></a></li>
+                                <li><a href="/quality_checker_to_vendor_msg" class="dropdown-item">To <b>Vendor</b></a></li>
+                            </ul>
+        
+                        </li>
+                        <li class="nav-item">
+                            <a href="/quality_checker_msg" class="nav-link active">Messages</a>
+                        </li>
+                        <li class="nav-item" style="padding-right: 50px;">
+                            <a href="/logout_quality_checker" class="nav-link">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+        </nav>
+<!---Navbar_End----->
+        
+    <div class="container mb-5" style="margin-top: 120px;">
+        <div class="row">
+            <div class="col-md-5 col-lg-4  offset-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <a href="#" class="h3" style="text-decoration: none;">Messages</a>
+                        </div>
+                        
+                        <div class="card-body">
+                            {% if message %}
+                            <table class="table">
+                                    
+                        <tr>
+                        <b style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">From:</b><span style="font-size: 19px; font-weight: 400;"> {{message.sender}}</span> 
+                        </tr><br>
+                        <tr>
+                           <div class="mt-2">
+                            <b style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">Subject:</b><span> {{message.subject}}</span>
+                           </div> 
+                        </tr>
+                    
+                        <tr>
+                            <p class="w-100 pt-2">{{message.description}}</p>
+                            {% if message.file %}
+                            <b style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">attachment:</b> <a href="{{message.file.url}}">{{message.file}}</a>
+                            {% endif %}
+                        </tr>                                </tbody>
+                            {% else %}
+                            <p class="mb-3 text-center">Nothing!</p>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+            </div>
+            
+        </div>
+    </div>
+    
+</body>
+</html>
