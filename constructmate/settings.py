@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-2y=kq9g55nxk3#)%quw7n&!*6)&1xg(l@ql@e+xpv3f)ox(l@u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','constructmate.onrender.com']
 
 
 # Application definition
